@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents Hub - Your Business AI Experts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .typing-indicator::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        .message { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold">
+                    <i class="fas fa-robot text-blue-400 mr-2"></i>
+                    AI Agents Hub
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-blue-400 transition">Home</a>
+                    <a href="#agents" class="hover:text-blue-400 transition">AI Agents</a>
+                    <a href="#features" class="hover:text-blue-400 transition">Features</a>
+                    <a href="#pricing" class="hover:text-blue-400 transition">Pricing</a>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full transition" onclick="scrollToChat()">
+                    Try Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-6xl font-bold mb-6">
+                Meet Your <span class="text-yellow-400">AI Business Experts</span>
+            </h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                Instantly access specialized AI agents for marketing, sales, development, and more. 
+                Get expert advice 24/7 without the expert price tag.
+            </p>
+            <div class="flex justify-center space-x-4 mb-12">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-4 rounded-full text-lg font-semibold transition" onclick="scrollToChat()">
+                    Start Chatting <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <button class="border border-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-full text-lg font-semibold transition">
+                    Watch Demo
+                </button>
+            </div>
+            
+            <!-- Live Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="text-3xl font-bold text-blue-400" id="conversations">5,247</div>
+                    <div class="text-sm opacity-75">Conversations Today</div>
+                </div>
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="text-3xl font-bold text-green-400" id="agents">8</div>
+                    <div class="text-sm opacity-75">AI Experts Available</div>
+                </div>
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="text-3xl font-bold text-yellow-400" id="satisfaction">98%</div>
+                    <div class="text-sm opacity-75">Customer Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents Section -->
+    <section id="agents" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Choose Your AI Expert</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Marketing Guru -->
+                <div class="bg-gradient-to-br from-pink-500 to-purple-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('marketing')">
+                    <div class="text-center">
+                        <i class="fas fa-bullhorn text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Marketing Guru</h3>
+                        <p class="text-sm opacity-90">Expert in digital marketing, campaigns, and growth strategies</p>
+                    </div>
+                </div>
+
+                <!-- Sales Coach -->
+                <div class="bg-gradient-to-br from-green-500 to-teal-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('sales')">
+                    <div class="text-center">
+                        <i class="fas fa-handshake text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Sales Coach</h3>
+                        <p class="text-sm opacity-90">Close more deals with proven sales techniques and scripts</p>
+                    </div>
+                </div>
+
+                <!-- Tech Advisor -->
+                <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('tech')">
+                    <div class="text-center">
+                        <i class="fas fa-code text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Tech Advisor</h3>
+                        <p class="text-sm opacity-90">Development guidance, code reviews, and architecture advice</p>
+                    </div>
+                </div>
+
+                <!-- Business Strategist -->
+                <div class="bg-gradient-to-br from-yellow-500 to-orange-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('business')">
+                    <div class="text-center">
+                        <i class="fas fa-chess text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Business Strategist</h3>
+                        <p class="text-sm opacity-90">Business planning, market analysis, and strategic decisions</p>
+                    </div>
+                </div>
+
+                <!-- HR Specialist -->
+                <div class="bg-gradient-to-br from-purple-500 to-pink-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('hr')">
+                    <div class="text-center">
+                        <i class="fas fa-users text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">HR Specialist</h3>
+                        <p class="text-sm opacity-90">Recruiting, team management, and workplace optimization</p>
+                    </div>
+                </div>
+
+                <!-- Finance Expert -->
+                <div class="bg-gradient-to-br from-emerald-500 to-green-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('finance')">
+                    <div class="text-center">
+                        <i class="fas fa-dollar-sign text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Finance Expert</h3>
+                        <p class="text-sm opacity-90">Financial planning, investment advice, and budget optimization</p>
+                    </div>
+                </div>
+
+                <!-- Legal Advisor -->
+                <div class="bg-gradient-to-br from-gray-600 to-gray-800 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('legal')">
+                    <div class="text-center">
+                        <i class="fas fa-gavel text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Legal Advisor</h3>
+                        <p class="text-sm opacity-90">Contracts, compliance, and business legal guidance</p>
+                    </div>
+                </div>
+
+                <!-- Content Creator -->
+                <div class="bg-gradient-to-br from-red-500 to-pink-600 p-6 rounded-xl cursor-pointer hover:scale-105 transition transform" onclick="selectAgent('content')">
+                    <div class="text-center">
+                        <i class="fas fa-pen-fancy text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Content Creator</h3>
+                        <p class="text-sm opacity-90">Blog posts, social media, and engaging content strategies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Interface -->
+    <section id="chat" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                    <!-- Chat Header -->
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
+                                    <i id="agentIcon" class="fas fa-robot text-gray-800"></i>
+                                </div>
+                                <div>
+                                    <h3 id="agentName" class="font-bold">Select an AI Agent</h3>
+                                    <p id="agentStatus" class="text-sm opacity-75">Choose an expert above to start</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-white bg-opacity-20 p-2 rounded-lg hover:bg-opacity-30 transition" onclick="clearChat()">
+                                    <i class="fas fa-trash text-sm"></i>
+                                </button>
+                                <button class="bg-white bg-opacity-20 p-2 rounded-lg hover:bg-opacity-30 transition" onclick="toggleVoice()">
+                                    <i id="voiceIcon" class="fas fa-microphone text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="h-96 overflow-y-auto p-6 space-y-4">
+                        <div class="text-center text-gray-500 py-8">
+                            <i class="fas fa-comments text-4xl mb-4"></i>
+                            <p>Select an AI agent above to start your conversation</p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="p-4 border-t border-gray-700">
+                        <div class="flex space-x-4">
+                            <input 
+                                type="text" 
+                                id="messageInput" 
+                                placeholder="Ask your AI expert anything..."
+                                class="flex-1 bg-gray-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                disabled
+                            >
+                            <button 
+                                id="sendButton"
+                                onclick="sendMessage()" 
+                                class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled
+                            >
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Why Choose Our AI Agents?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-lightning-bolt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Instant Responses</h3>
+                    <p class="text-gray-400">Get expert advice in seconds, not days. Our AI agents are available 24/7.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Specialized Knowledge</h3>
+                    <p class="text-gray-400">Each agent is trained with industry-specific expertise and real-world experience.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Secure & Private</h3>
+                    <p class="text-gray-400">Your conversations are encrypted and never shared. Complete privacy guaranteed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Simple Pricing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-gray-800 p-8 rounded-xl">
+                    <h3 class="text-2xl font-bold mb-4">Free</h3>
+                    <div class="text-4xl font-bold mb-6">$0<span class="text-lg text-gray-400">/month</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>5 conversations/day</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>All AI agents</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic support</li>
+                    </ul>
+                    <button class="w-full bg-gray-700 hover:bg-gray-600 py-3 rounded-lg transition">Get Started</button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="bg-gradient-to-br from-blue-600 to-purple-600 p-8 rounded-xl transform scale-105">
+                    <h3 class="text-2xl font-bold mb-4">Pro</h3>
+                    <div class="text-4xl font-bold mb-6">$29<span class="text-lg opacity-75">/month</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i>Unlimited conversations</li>
+                        <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i>Priority responses</li>
+                        <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i>Voice chat enabled</li>
+                        <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i>Custom agents</li>
+                    </ul>
+                    <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-3 rounded-lg transition font-semibold">Upgrade Now</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-gray-800 p-8 rounded-xl">
+                    <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                    <div class="text-4xl font-bold mb-6">$199<span class="text-lg text-gray-400">/month</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Everything in Pro</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>White-label solution</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>API access</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></li>Dedicated support</li>
+                    </ul>
+                    <button class="w-full bg-gray-700 hover:bg-gray-600 py-3 rounded-lg transition">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">
+                        <i class="fas fa-robot text-blue-400 mr-2"></i>
+                        AI Agents Hub
+                    </div>
+                    <p class="text-gray-400">Your 24/7 AI business experts, ready to help you grow and succeed.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">AI Agents</a></li>
+                        <li><a href="#" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Status</a></li>
+                        <li><a href="#" class="hover:text-white transition">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 AI Agents Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentAgent = null;
+        let isVoiceEnabled = false;
+
+        const agents = {
+            marketing: {
+                name: "Marketing Guru",
+                icon: "fas fa-bullhorn",
+                status: "Expert in digital marketing & growth",
+                personality: "I'm your marketing expert! I specialize in digital marketing strategies, campaign optimization, social media growth, SEO, content marketing, and conversion rate optimization. How can I help grow your business today?"
+            },
+            sales: {
+                name: "Sales Coach",
+                icon: "fas fa-handshake", 
+                status: "Helping you close more deals",
+                personality: "Hey there! I'm your sales coach with years of experience in B2B and B2C sales. I can help you with sales scripts, objection handling, pipeline management, lead qualification, and closing techniques. What sales challenge can I solve for you?"
+            },
+            tech: {
+                name: "Tech Advisor",
+                icon: "fas fa-code",
+                status: "Ready to solve technical challenges",
+                personality: "Hello! I'm your technical advisor specializing in software development, system architecture, code optimization, tech stack selection, and debugging. Whether it's frontend, backend, mobile, or infrastructure - I'm here to help!"
+            },
+            business: {
+                name: "Business Strategist", 
+                icon: "fas fa-chess",
+                status: "Strategic planning & growth expert",
+                personality: "Welcome! I'm your business strategist focused on strategic planning, market analysis, competitive positioning, business model optimization, and growth strategies. Let's discuss how to take your business to the next level!"
+            },
+            hr: {
+                name: "HR Specialist",
+                icon: "fas fa-users",
+                status: "People & culture expert",
+                personality: "Hi! I'm your HR specialist with expertise in talent acquisition, employee engagement, performance management, workplace culture, and team dynamics. How can I help optimize your human resources?"
+            },
+            finance: {
+                name: "Finance Expert",
+                icon: "fas fa-dollar-sign",
+                status: "Financial planning & analysis guru",
+                personality: "Greetings! I'm your financial expert specializing in financial planning, investment strategies, budgeting, cash flow management, and financial analysis. Let's discuss your financial goals and challenges!"
+            },
+            legal: {
+                name: "Legal Advisor",
+                icon: "fas fa-gavel",
+                status: "Business legal guidance",
+                personality: "Hello! I'm your legal advisor focusing on business law, contract review, compliance, intellectual property, and risk management. I can help navigate legal complexities in business. What legal question do you have?"
+            },
+            content: {
+                name: "Content Creator",
+                icon: "fas fa-pen-fancy",
+                status: "Creating engaging content",
+                personality: "Hey! I'm your content creation expert specializing in blog posts, social media content, email marketing, copywriting, and content strategy. Let's create content that converts and engages your audience!"
+            }
+        };
+
+        function selectAgent(agentType) {
+            currentAgent = agentType;
+            const agent = agents[agentType];
+            
+            // Update UI
+            document.getElementById('agentName').textContent = agent.name;
+            document.getElementById('agentStatus').textContent = agent.status;
+            document.getElementById('agentIcon').className = agent.icon;
+            
+            // Enable chat input
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('sendButton').disabled = false;
+            document.getElementById('messageInput').placeholder = `Ask ${agent.name} anything...`;
+            
+            // Clear chat and show welcome message
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            
+            addMessage('ai', agent.personality);
+            
+            // Scroll to chat
+            document.getElementById('chat').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function addMessage(sender, text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
+                sender === 'user' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-700 text-white'
+            }`;
+            
+            if (sender === 'ai') {
+                const icon = document.createElement('div');
+                icon.className = 'w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mr-3 mt-1';
+                icon.innerHTML = `<i class="${agents[currentAgent].icon} text-sm"></i>`;
+                messageDiv.appendChild(icon);
+            }
+            
+            messageBubble.textContent = text;
+            messageDiv.appendChild(messageBubble);
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function simulateAIResponse(userMessage) {
+            const agent = agents[currentAgent];
+            const responses = {
+                marketing: [
+                    "For your marketing challenge, I'd recommend focusing on your target audience first. What's your current customer acquisition cost?",
+                    "Great question! Let's analyze your conversion funnel. Are you tracking metrics at each stage?",
+                    "I see potential for growth here. Have you considered A/B testing your landing pages?",
+                    "Based on current trends, I'd suggest implementing a content marketing strategy. What's your content creation capacity?"
+                ],
+                sales: [
+                    "That's a common objection! Here's how top performers handle it: acknowledge, isolate, and redirect to value.",
+                    "Your sales process sounds solid. Let's optimize your follow-up sequence - are you nurturing leads properly?",
+                    "I can help you increase your closing rate. What's your current conversion percentage from qualified leads?",
+                    "Great question! The key is building rapport first. Tell me about your discovery process."
+                ],
+                tech: [
+                    "For that architecture, I'd recommend considering scalability first. What's your expected user load?",
+                    "That's a solid approach! Have you considered using microservices for better maintainability?",
+                    "I can help optimize that code. Are you seeing performance issues in any specific areas?",
+                    "Good question! The best tech stack depends on your requirements. What's your timeline and team expertise?"
+                ],
+                business: [
+                    "That's a strategic opportunity! Let's analyze your competitive positioning first. Who are your main competitors?",
+                    "Excellent point! For sustainable growth, I'd recommend focusing on customer lifetime value. What's your retention rate?",
+                    "That market entry strategy could work. Have you validated demand through customer interviews?",
+                    "Smart thinking! Let's create a SWOT analysis to identify your best growth opportunities."
+                ],
+                hr: [
+                    "That's a common HR challenge! For better employee engagement, I'd suggest starting with regular feedback sessions.",
+                    "Great question! The key to successful recruiting is defining clear job criteria. What's your current hire-to-interview ratio?",
+                    "That performance issue needs addressing quickly. Have you documented specific behaviors and set clear expectations?",
+                    "Building company culture takes time. What values are most important to your organization?"
+                ],
+                finance: [
+                    "For cash flow optimization, I'd recommend implementing better invoicing processes. What's your current collection period?",
+                    "That's a good investment consideration! What's your risk tolerance and investment timeline?",
+                    "Budget planning is crucial. Are you tracking your key financial KPIs monthly?",
+                    "Smart financial question! Let's analyze your profit margins first. What's your gross profit percentage?"
+                ],
+                legal: [
+                    "That contract clause needs careful review. I'd recommend adding specific liability limitations.",
+                    "Good compliance question! The regulations vary by industry. What sector are you operating in?",
+                    "For intellectual property protection, I'd suggest filing early. Have you conducted a trademark search?",
+                    "That's an important legal consideration. The risk depends on several factors - let's discuss your specific situation."
+                ],
+                content: [
+                    "Great content idea! For maximum engagement, I'd recommend focusing on storytelling. What's your brand narrative?",
+                    "That content strategy sounds promising! Are you tracking engagement metrics across platforms?",
+                    "For better SEO results, let's optimize your content structure. What keywords are you targeting?",
+                    "Excellent question! Content consistency is key. How often are you currently publishing new content?"
+                ]
+            };
+            
+            const agentResponses = responses[currentAgent] || responses.business;
+            const randomResponse = agentResponses[Math.floor(Math.random() * agentResponses.length)];
+            
+            // Add typing indicator
+            setTimeout(() => {
+                addMessage('ai', randomResponse);
+            }, 1000 + Math.random() * 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || !currentAgent) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            // Simulate AI response
+            simulateAIResponse(message);
+        }
+
+        function clearChat() {
+            document.getElementById('chatMessages
